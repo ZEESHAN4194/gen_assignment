@@ -70,7 +70,7 @@ Run the migrations to set up the database schema:
 php artisan migrate
 ```
 
-### 6. Seed the Database (Optional)
+### 6. Seed the Database
 
 If the project includes seeders, you can populate the database with sample data:
 
