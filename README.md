@@ -20,7 +20,7 @@ Ensure your system has the following installed:
 Clone the project repository to your local machine:
 
 ```bash
-git clone https://github.com/your-username/your-laravel-project.git
+git clone https://github.com/ZEESHAN4194/gen_assignment.git
 cd gen_assignment
 ```
 
