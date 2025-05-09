@@ -17,7 +17,7 @@ class AdminUserSeeder extends Seeder
             ['email' => 'admin@gmail.com'],
             [
                 'name' => 'admin',
-                'email' => 'admin@.com',
+                'email' => 'admin@gmail.com',
                 'password' => bcrypt('password123'), // change to a secure password
                 'usertype' => 'admin', // only if your User model has a 'role' column
             ]
