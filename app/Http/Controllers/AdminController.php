@@ -123,10 +123,10 @@ class AdminController extends Controller
             'password' => 'required'
         ]);
 
-        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password, 'usertype' => 'admin'])) {
             return redirect()->route('dashboard')->with('success', 'Welcome Admin!');
         } else {
-            return redirect()->route('login')->with('error', 'Incorrect Credentials!');
+            return redirect()->route('admin.login')->with('error', 'Incorrect Credentials!');
         }
 
         return back()->with('error', 'Invalid credentials!');

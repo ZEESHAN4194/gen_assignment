@@ -66,6 +66,7 @@ class CourseRegistrationController extends Controller
             'name' => $data['first_name'] . ' ' . $data['last_name'],
             'email' => $data['email'],
             'phone' => $data['phone'],
+            'password' => bcrypt('123456'),
             'course_id' => $data['course_id'],
             'usertype' => 'student',
         ]);
