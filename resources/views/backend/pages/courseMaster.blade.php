@@ -6,53 +6,65 @@
             <div class="row justify-content-center">
                 <div class="col-md-10">
                     <div class="card shadow-lg border-0">
-                        <div class="card-header bg-secondary text-white py-3 d-flex justify-content-between align-items-center">
-                            <h2 class="mb-0">All courses</h2>
+                        <div
+                            class="card-header bg-secondary text-white py-3 d-flex justify-content-between align-items-center">
+                            <h2 class="mb-0">All Courses</h2>
                             <a href="{{ route('add.course') }}" class="btn btn-light btn-sm text-success shadow-sm">
                                 <i class="fas fa-plus"></i> Add Course
                             </a>
                         </div>
                         <div class="card-body">
-                            <table id="coursesTable" class="table table-hover table-bordered">
-                                <thead class="table-dark">
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Course Name</th>
-                                        <th>Description</th>
-                                        <th>Fees</th>
-                                        <th>Duration</th>
-                                        <th>Image</th>
-                                        <th>Actions</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse($courses as $course)
+                            @if ($courses->count())
+                                <table id="coursesTable" class="table table-hover table-bordered">
+                                    <thead class="table-dark">
                                         <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $course->name }}</td>
-                                            <td>{{ Str::limit($course->description, 30) }}</td>
-                                            <td>{{ $course->duration }} years</td>
-                                            <td>{{ $course->fees }} lakh</td>
-                                            <td>
-                                                <img src="{{ asset('uploads/courses/' . $course->thumbnail) }}" alt="Course Image" width="70" height="70">
-                                            </td>
-                                            <td>
-                                                <a href="{{ route('courses.edit', $course->id) }}" class="btn btn-sm btn-secondary">Edit</a>
-                                                <form action="{{ route('course.delete', $course->id) }}" method="POST" class="d-inline-block" onsubmit="return confirm('Are you sure you want to delete this course?');">
-                                                    @csrf
-                                                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                                                </form>
-                                            </td>
+                                            <th>#</th>
+                                            <th>Course Name</th>
+                                            <th>Description</th>
+                                            <th>Fees</th>
+                                            <th>Duration</th>
+                                            <th>Image</th>
+                                            <th>Actions</th>
                                         </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="7" class="text-center text-muted">No courses available</td>
-                                        </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @forelse($courses as $course)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $course->name }}</td>
+                                                <td>{{ Str::limit($course->description, 30) }}</td>
+                                                <td>{{ $course->fees }} lakh</td>
+                                                <td>{{ $course->duration }} years</td>
+                                                <td>
+                                                    <img src="{{ asset('uploads/courses/' . $course->thumbnail) }}"
+                                                        alt="Course Image" width="70" height="70">
+                                                </td>
+                                                <td>
+                                                    <a href="{{ route('courses.edit', $course->id) }}"
+                                                        class="btn btn-sm btn-secondary">Edit</a>
+                                                    <form action="{{ route('course.delete', $course->id) }}" method="POST"
+                                                        class="d-inline-block"
+                                                        onsubmit="return confirm('Are you sure you want to delete this course?');">
+                                                        @csrf
+                                                        <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                                    </form>
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="7" class="text-center text-muted">No courses available</td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            @else
+                                <div class="text-center text-muted py-5">
+                                    <h5>No courses available</h5>
+                                </div>
+                            @endif
                         </div>
                         <div class="card-footer text-center bg-light">
+                            {{-- Uncomment if needed --}}
                             {{-- <small class="text-muted">Last updated: {{ now()->format('Y-m-d H:i:s') }}</small> --}}
                         </div>
                     </div>
@@ -61,3 +73,11 @@
         </div>
     </main>
 @endsection
+
+@push('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#coursesTable').DataTable();
+        });
+    </script>
+@endpush

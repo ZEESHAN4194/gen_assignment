@@ -15,36 +15,42 @@
                             </a>
                         </div>
                         <div class="card-body">
-                            <table id="coursesTable" class="table table-hover table-striped table-bordered">
-                                <thead class="thead-dark">
-                                    <tr>
-                                        <th>S.no</th>
-                                        <th>Name</th>
-                                        <th>Email</th>
-                                        <th>Phone</th>
-                                        <th>Course</th>
-                                        <th>Fees</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @forelse($students as $student)
+                            @if ($students->count())
+                                <table id="coursesTable" class="table table-hover table-striped table-bordered">
+                                    <thead class="thead-dark">
                                         <tr>
-                                            <td>{{ $loop->iteration }}</td>
-                                            <td>{{ $student->name }}</td>
-                                            <td>{{ $student->email }}</td>
-                                            <td>{{ $student->phone ?? 'N/A' }}</td>
-                                            <td>{{ $student->course->name ?? 'N/A' }}</td>
-                                            <td>
-                                                {{ optional($student->course)->fees ? number_format($student->course->fees, 2) . ' Lakh' : 'N/A' }}
-                                            </td>
+                                            <th>S.no</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Phone</th>
+                                            <th>Course</th>
+                                            <th>Fees</th>
                                         </tr>
-                                    @empty
-                                        <tr>
-                                            <td colspan="4" class="text-center text-muted">No courses available</td>
-                                        </tr>
-                                    @endforelse
-                                </tbody>
-                            </table>
+                                    </thead>
+                                    <tbody>
+                                        @forelse($students as $student)
+                                            <tr>
+                                                <td>{{ $loop->iteration }}</td>
+                                                <td>{{ $student->name }}</td>
+                                                <td>{{ $student->email }}</td>
+                                                <td>{{ $student->phone ?? 'N/A' }}</td>
+                                                <td>{{ $student->course->name ?? 'N/A' }}</td>
+                                                <td>
+                                                    {{ optional($student->course)->fees ? number_format($student->course->fees, 2) . ' Lakh' : 'N/A' }}
+                                                </td>
+                                            </tr>
+                                        @empty
+                                            <tr>
+                                                <td colspan="4" class="text-center text-muted">No courses available</td>
+                                            </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            @else
+                                <div class="text-center text-muted py-5">
+                                    <h5>No Student Register</h5>
+                                </div>
+                            @endif
 
                         </div>
                         <div class="card-footer text-center bg-light">
